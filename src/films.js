@@ -29,9 +29,25 @@ function orderAlphabetically(movies) {
 }
 
 // Exercise 5: Order by year, ascending
-function orderByYear() {
-
+function orderByYear(movies) {
+ let moviesByYear =  movies.map((movie) => movie).sort((a, b) => {
+   if (a.year > b.year) { 
+    return 1;
+   }else if (a.year < b.year) {
+     return -1;
+   }else{ //Si el año es igual, quiero que me los ordene alfabeticamente//No quiero que me retorne 0.
+    if (a.title > b.title) {
+      return 1;
+    }else if (a.title < b.title) {
+      return -1;
+    }else{
+      return 0;
+    }
+   }
+ })
+ return moviesByYear;
 }
+
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory() {
