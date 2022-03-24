@@ -14,11 +14,16 @@ function getMoviesFromDirector(movies) {
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(movies) {
   const moviesDirector = getMoviesFromDirector(movies);
-  let score = moviesDirector.map((movie) => movie.score);
-  let average = score.reduce((anterior, actual) => {
-    return anterior + actual;
-  });
-  return average / score.length;
+  if (moviesDirector.length === 0) return 0;
+  const sumaDeTot = moviesDirector.reduce((acc, movie) => {
+    if(movie.score !== undefined){
+    return movie.score + acc;
+    } else {
+      return acc;
+    }
+  }, 0);
+  const resultat = (sumaDeTot / moviesDirector.length).toFixed(2);
+  return Number(resultat);
 }
 
 // Exercise 4:  Alphabetic order by title 
@@ -48,23 +53,36 @@ function orderByYear(movies) {
  return moviesByYear;
 }
 
-
-// Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
-
+//Exercise 6: Calculate the average of the movies in a category
+function moviesAverageByCategory(movies) {
+  const dramaMovies = movies.filter((peli, i) => peli.genre[i] === 'Drama' && peli.genre.length === 1)
+  const sumaDeTot = dramaMovies.reduce((acc, movie) => {
+    if(movie.score !== undefined){
+    return movie.score + acc;
+    } else {
+      return acc;
+    }
+  }, 0);
+  const resultat = (sumaDeTot / dramaMovies.length).toFixed(2);
+  return Number(resultat);
 }
+
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
-
-}
-
+function hoursToMinutes(movies) {
+  let moviesDuration = movies.map((movie) => movie.duration);
+    for (let i = 0; i < moviesDuration.length; i++) {
+      let horas = moviesDuration[i].substring(0, moviesDuration[i].search("h"));
+      let minutos = moviesDuration[i].substring(moviesDuration[i].search("h") + 1, moviesDuration[i].search("min")) * 1;
+      let horasEnMinutos = horas * 60 + minutos;
+      return horasEnMinutos; 
+    }
+  }
+  
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {
   
 }
-
-
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
